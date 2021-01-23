@@ -39,7 +39,7 @@ class DepartmentSearch extends Department
      */
     public function search($params)
     {
-        $query = Department::find();
+        $query = Department::find()->orderBy('department_id','desc');
 
         // add conditions that should always apply here
 
@@ -56,8 +56,8 @@ class DepartmentSearch extends Department
         }
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'department_id', $this->department_id])
-            ->andFilterWhere(['like', 'department_name', $this->department_name]);
+        $query->andFilterWhere(['=', 'department_id', $this->department_id])
+              ->andFilterWhere(['like', 'department_name', $this->department_name]);
 
         return $dataProvider;
     }
