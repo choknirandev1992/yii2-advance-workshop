@@ -6,8 +6,6 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\data\SqlDataProvider;
 
-
-
 class PositionController extends \yii\web\Controller
 {
 
@@ -79,7 +77,6 @@ class PositionController extends \yii\web\Controller
         
         $dataProvider = new SqlDataProvider([
             'sql' => 'select * from position',
-            'totalCount' => $count,
             'pagination' => [
                 'pageSize' => 10
             ]

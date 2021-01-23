@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use Yii\db\Query;
+use yii\data\ActiveDataProvider;
 
 class PrefixController extends \yii\web\Controller
 {
@@ -62,19 +63,37 @@ class PrefixController extends \yii\web\Controller
         //           ->where(['prefix_id' =>  '03'])
         //           ->one();
 
-        $prefix = $query->from('prefix')
-                        ->where(['like','prefix_name','นา'])
-                        ->orderBy('prefix_id desc')
-                        ->all();
-                        
-        $count = $query->from('prefix')->count();
+        // $prefix = $query->from('prefix')
+        //                 ->where(['like','prefix_name','นา'])
+        //                 ->orderBy('prefix_id desc')
+        //                 ->all();
 
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return [
-            'data' => $prefix,
-            'count' => (int) $count
-        ]; 
-        //return $this->render('index');
+        // $prefixSQL = $query->from('prefix')
+        // ->where(['like', 'prefix_name', 'นา'])
+        // ->orderBy('prefix_id desc')
+        // ->createCommand();
+                        
+        //$count = $query->from('prefix')->count();
+
+        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // return [
+        //     'data' => $prefix,
+        //     'params' => $prefixSQL->params,
+        //     'sql' => $prefixSQL->sql,
+        //     'total_record' => (int) $count,
+        // ]; 
+
+        $prefixQuery = $query->from('prefix');
+        $dataProvider = new ActiveDataProvider([
+            'query' => $prefixQuery,
+            'pagination' => [
+                'pageSize' => 3
+            ]
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 
