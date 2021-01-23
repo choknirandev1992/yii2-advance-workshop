@@ -8,6 +8,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
 <div class="container-fluid">
    <div class="row">
       <div class="col-md-12">
+        <a href="<?= Url::to(['position/grid']) ?>">แสดงแบบ Grid</a>
         <div class="card">
             <div class="card-header">
                 <?= $count ?> รายการ

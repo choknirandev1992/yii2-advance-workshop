@@ -2,10 +2,10 @@
 
 namespace backend\controllers;
 use Yii;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use yii\data\SqlDataProvider;
+
 
 
 class PositionController extends \yii\web\Controller
@@ -25,7 +25,7 @@ class PositionController extends \yii\web\Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['index', 'delete'],
+                        'actions' => ['index', 'delete','grid'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -71,6 +71,23 @@ class PositionController extends \yii\web\Controller
     public function actionDelete($id) {
         Yii::$app->db->createCommand()->delete('position', 'id=:id', [':id'=>$id])->execute();
         return $this->redirect(['index']);
+    }
+
+    public function actionGrid(){
+        
+        $count = Yii::$app->db->createCommand("SELECT count(*) FROM position")->queryScalar();
+        
+        $dataProvider = new SqlDataProvider([
+            'sql' => 'select * from position',
+            'totalCount' => $count,
+            'pagination' => [
+                'pageSize' => 10
+            ]
+        ]);
+
+        return $this->render('grid', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 }
