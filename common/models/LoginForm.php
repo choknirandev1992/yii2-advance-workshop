@@ -23,11 +23,21 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username'], 'required', 'message' => 'กรุณากรอกข้อมูล username ด้วย'],
+            [['password'], 'required', 'message' => 'กรุณากรอกข้อมูล password ด้วย'],
+
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'ชื่อผู้ใช้',
+            'password' => 'รหัสผ่าน'
         ];
     }
 
