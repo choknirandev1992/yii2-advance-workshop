@@ -2,7 +2,6 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
-use yii\bootstrap4\LinkPager;
 
 $this->title = 'คำนำหน้า';
 $this->params['breadcrumbs'] = [['label' => $this->title]];

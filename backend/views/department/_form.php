@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\Department */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<div class="container-fluid">
 <div class="department-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -22,4 +22,5 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+</div>
 </div>

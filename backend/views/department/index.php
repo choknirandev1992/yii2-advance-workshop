@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap4\LinkPager;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\DepartmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,10 +12,8 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Departments');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="container-fluid">
 <div class="department-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Create Department'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -26,14 +26,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'department_id',
+            //'department_id',
+            [
+                'attribute' => 'department_id',
+                'options' => ['width' => '100'],
+                'contentOptions' => ['class' => 'text-center'],
+            ],
             'department_name',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+               'class' => '\hail812\adminlte3\yii\grid\ActionColumn',
+               'header' => 'เครื่องมือ',
+               'headerOptions' => ['width' => '150', 'class' => 'text-center'],
+               'contentOptions' => ['class' => 'text-center'],
+               'template' => '{view} {update} {delete}'
+            ],
         ],
+        'pager' => [
+            'class' => '\yii\bootstrap4\LinkPager'
+        ]
     ]); ?>
 
     <?php Pjax::end(); ?>
-
+</div>
 </div>

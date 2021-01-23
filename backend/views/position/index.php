@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\StringHelper;
+use yii\bootstrap4\LinkPager;
 $this->title = 'ตำแหน่ง';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
