@@ -21,7 +21,7 @@ class PositionController extends \yii\web\Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
                     [
