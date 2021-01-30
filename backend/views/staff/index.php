@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\StaffSearch */
@@ -18,11 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <div class="col-md-12">
                             <?= Html::a(Yii::t('app', 'Create Staff'), ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a(Yii::t('app', 'รายงาน'), ['pdf'], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
                         </div>
                     </div>
 
+                   <?php Pjax::begin(['enablePushState' => false]); ?>
 
-                   <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                   <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
                    <?= GridView::widget([
                         'dataProvider' => $dataProvider,
@@ -62,7 +65,12 @@ $this->params['breadcrumbs'][] = $this->title;
                            //'staff_lastname',
                            //'staff_date_work_start',
                            //'position_id',
-                           'position.name',
+                           //'position.name',
+                           [
+                              'attribute' => 'position',
+                              'value' => 'position.name',
+                              'label' => 'ตำแหน่ง',
+                           ],
                            //'department_id',
                            'department.department_name',
                            //'staff_address',
@@ -106,6 +114,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'yii\bootstrap4\LinkPager',
                             ]
                     ]); ?>
+
+
+                    <?php Pjax::end() ?>
 
 
                 </div>

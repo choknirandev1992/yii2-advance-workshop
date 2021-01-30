@@ -13,6 +13,7 @@ class StaffSearch extends Staff
 {
 
     public $prefix;
+    public $position;
 
     /**
      * {@inheritdoc}
@@ -20,7 +21,7 @@ class StaffSearch extends Staff
     public function rules()
     {
         return [
-            [['staff_id', 'prefix_id', 'staff_firstname', 'staff_lastname', 'staff_date_work_start', 'department_id', 'staff_address', 'staff_tel', 'staff_picture', 'staff_work_status', 'prefix'], 'safe'],
+            [['staff_id', 'prefix_id', 'staff_firstname', 'staff_lastname', 'staff_date_work_start', 'department_id', 'staff_address', 'staff_tel', 'staff_picture', 'staff_work_status', 'prefix','position'], 'safe'],
             [['position_id'], 'integer'],
         ];
     }
@@ -43,13 +44,19 @@ class StaffSearch extends Staff
      */
     public function search($params)
     {
-        $query = Staff::find()->joinWith(['prefix', 'position','department'])->orderBy('staff_id asc');
+        $query = Staff::find()->joinWith(['prefix', 'position','department']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['staff_id' => SORT_ASC] ]
         ]);
+
+        $dataProvider->sort->attributes['position'] = [
+            'asc' => ['position.name' => SORT_ASC],
+            'desc' => ['position.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -74,7 +81,8 @@ class StaffSearch extends Staff
             ->andFilterWhere(['like', 'staff_tel', $this->staff_tel])
             ->andFilterWhere(['like', 'staff_picture', $this->staff_picture])
             ->andFilterWhere(['like', 'staff_work_status', $this->staff_work_status])
-            ->andFilterWhere(['=', 'prefix.prefix_name', $this->prefix]);
+            ->andFilterWhere(['=', 'prefix.prefix_name', $this->prefix])
+            ->andFilterWhere(['like', 'position.name', $this->position]);
 
         return $dataProvider;
     }

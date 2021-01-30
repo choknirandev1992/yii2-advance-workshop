@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use common\models\User;
 
 /**
  * This is the model class for table "staff".
@@ -114,5 +115,18 @@ class Staff extends \yii\db\ActiveRecord
     public static function getPrefixName(){
        $prefixName = Prefix::find()->asArray()->all();
        return \yii\helpers\ArrayHelper::map($prefixName, 'prefix_name', 'prefix_name');
+    }
+
+    //สร้าง dropdown list
+    public static function getStaffAll(){
+        $staff = Staff::find()->select(['staff_id', 'CONCAT(staff_firstname, " ",staff_lastname) as fullname'])
+                              ->asArray()->all();
+        return \yii\helpers\ArrayHelper::map($staff, 'staff_id', 'fullname');
+
+    }
+
+    //hasOne to user table
+    public static function getUser(){
+        return $this->hasOne(User::className,['id' => 'user_id']);
     }
 }

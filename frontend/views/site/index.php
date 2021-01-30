@@ -1,6 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 $this->title = 'My Yii Application';
 ?> <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -11,6 +14,54 @@ $this->title = 'My Yii Application';
     <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
   </div>
 </div>
+
+<?php 
+ if (!Yii::$app->user->isGuest) {
+   ?>
+    <div class="jumbotron2">
+      <div class="container">
+      <?= GridView::widget([
+          'dataProvider' => $dataProvider,
+          'filterModel' => $searchModel,
+          'columns' => [
+              ['class' => 'yii\grid\SerialColumn'],
+            'id',
+            'staff_id',
+            'leave_year',
+            'leave_type',
+            'leave_day',
+            //'leave_date_start',
+            //'leave_date_end',
+            //'leave_num',
+            //'leave_reason',
+            //'leave_status',
+            [
+              'class' => '\hail812\adminlte3\yii\grid\ActionColumn',
+              'header' => 'เครื่องมือ',
+              'headerOptions' => ['width' => '150', 'class' => 'text-center'],
+              'contentOptions' => ['class' => 'text-center'],
+              'template' => '{view}',
+              'buttons' => [
+                  'view' => function($url, $model){
+
+                       return Html::a('<i class="fas fa-info-circle"></i>' , $url, ['title' => 'ดูรายละเอียด']);
+
+                  }
+              ]
+           ],
+          ],
+          'summaryOptions' => ['class' => 'summary mt-2 mb-2'],
+          'pager' => [
+              'class' => 'yii\bootstrap4\LinkPager',
+          ]
+      ]); ?>
+      
+      </div>
+    </div>
+   <?php 
+ }
+
+?>
 
 <div class="container">
   <!-- Example row of columns -->

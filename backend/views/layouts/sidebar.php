@@ -29,6 +29,7 @@
                     ['label' => 'แผนก', 'icon' => 'address-card', 'url' => ['/department/index']],
                     ['label' => 'คำนำหน้า', 'icon' => 'address-book', 'url' => ['/prefix/index']],
                     ['label' => 'พนักงาน', 'icon' => 'user', 'url' => ['/staff/index']],
+                    ['label' => 'จัดการการลา', 'icon' => 'file', 'url' => ['/leave/index']],
                     ['label' => 'Yii2 PROVIDED', 'header' => true],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
