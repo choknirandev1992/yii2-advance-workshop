@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => 'staff_id',
                                 'contentOptions' => ['class' => 'text-center'],
                                 'headerOptions' => ['class' => 'text-center'],
+                                'options' => ['width' => '100px']
 
                            ],
                            //'prefix_id',
@@ -44,7 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
                              'attribute' => 'prefix',
                              'header' => 'คำนำหน้า',
                              'value' => 'prefix.prefix_name',
-                             'filter' => \backend\models\Staff::getPrefixName()
+                             'filter' => Html::activeDropDownList($searchModel,
+                                'prefix',
+                                \backend\models\Staff::getPrefixName(),
+                                ['class' => 'form-control','prompt' => '---เลือกคำนำหน้า---']
+                              ),    
                            ],
                            [
                                'attribute' => 'ชื่อ-สกุล',
